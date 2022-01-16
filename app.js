@@ -26,26 +26,39 @@
   }
 
   // init actions
-  renderGrid(3);
+  renderGrid(16);
 
-  const clearBtn = document.querySelector('.js-clear-btn');
-  const grid4Btn = document.querySelector('.js-grid4-btn');
-  const grid6Btn = document.querySelector('.js-grid6-btn');
-
-  clearBtn.addEventListener('click', () => {
+  function clearGrid() {
     // TODO: how to select cells only one time?
     const cells = document.querySelectorAll('.grid__cell');
     cells.forEach((cell) => {
       const c = cell;
       c.style.backgroundColor = 'transparent';
     });
-  });
-  grid4Btn.addEventListener('click', () => renderGrid(4));
-  grid6Btn.addEventListener('click', () => renderGrid(6));
+  }
+
+  const clearBtn = document.querySelector('.js-clear-btn');
+  clearBtn.addEventListener('click', clearGrid);
 
   grid.addEventListener('mouseover', (ev) => {
     const cell = ev.target;
     const color = 'rgba(255, 255, 255, 0.5)';
     cell.style.backgroundColor = color;
+  });
+
+  // change grid size
+  const sizeInput = document.querySelector('.js-size-input');
+  sizeInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const size = e.target.value;
+      if (size < 1 || size > 100) return;
+      renderGrid(size);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      clearGrid();
+    }
   });
 })();
