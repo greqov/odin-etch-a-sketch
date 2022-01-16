@@ -1,12 +1,12 @@
-(function () {
-  'use strict';
+'use strict';
 
+(function () {
   // TODO: get grid size in px
   const gridSize = 480;
   const grid = document.querySelector('.js-grid');
 
   function generateCells(num) {
-    let cells = [];
+    const cells = [];
     const size = (gridSize / num).toFixed(2);
 
     for (let i = 0; i < num * num; i++) {
@@ -31,4 +31,10 @@
   clear3.addEventListener('click', () => renderGrid(3));
   size4.addEventListener('click', () => renderGrid(4));
   size6.addEventListener('click', () => renderGrid(6));
+
+  grid.addEventListener('mouseover', (ev) => {
+    const cell = ev.target;
+    const color = 'rgba(255, 255, 255, 0.5)';
+    cell.style.backgroundColor = color;
+  });
 })();
