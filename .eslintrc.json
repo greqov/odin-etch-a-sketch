@@ -1,5 +1,9 @@
 {
   "root": true,
+  "globals": {
+    "window": true,
+    "document": true
+  },
   "extends": [
     "airbnb-base",
     "prettier",
@@ -15,6 +19,8 @@
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "strict": ["error", "global"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
   }
 }
