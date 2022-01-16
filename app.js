@@ -28,9 +28,20 @@
   // init actions
   renderGrid(3);
 
-  clear3.addEventListener('click', () => renderGrid(3));
-  size4.addEventListener('click', () => renderGrid(4));
-  size6.addEventListener('click', () => renderGrid(6));
+  const clearBtn = document.querySelector('.js-clear-btn');
+  const grid4Btn = document.querySelector('.js-grid4-btn');
+  const grid6Btn = document.querySelector('.js-grid6-btn');
+
+  clearBtn.addEventListener('click', () => {
+    // TODO: how to select cells only one time?
+    const cells = document.querySelectorAll('.grid__cell');
+    cells.forEach((cell) => {
+      const c = cell;
+      c.style.backgroundColor = 'transparent';
+    });
+  });
+  grid4Btn.addEventListener('click', () => renderGrid(4));
+  grid6Btn.addEventListener('click', () => renderGrid(6));
 
   grid.addEventListener('mouseover', (ev) => {
     const cell = ev.target;
