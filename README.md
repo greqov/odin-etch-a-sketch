@@ -10,7 +10,7 @@
 - [x] add "clear" button
 - [x] add option to change size of grid (limit to 100)
 - [x] add eraser mode
-- [] add rainbow mode
+- [x] add rainbow mode
 - [] add grayscale mode (add 10% of black on each hover event)
 - [] refactor
 - [] update readme (links, format, etc.)

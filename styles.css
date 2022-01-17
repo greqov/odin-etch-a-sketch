@@ -8,6 +8,12 @@ html {
   font-family: monospace;
 }
 
+body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
 .sketch-area__grid {
   box-sizing: content-box;
   display: block;

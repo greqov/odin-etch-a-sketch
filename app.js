@@ -6,8 +6,8 @@
   const grid = document.querySelector('.js-grid');
 
   function getRandomColor() {
-    // TODO: generate random color
-    return 'skyblue';
+    const num = () => Math.floor(Math.random() * 256);
+    return `rgb(${num()},${num()},${num()})`;
   }
 
   const state = {
