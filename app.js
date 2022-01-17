@@ -13,6 +13,7 @@
   const state = {
     eraserMode: false,
     rainbowMode: false,
+    grayMode: false,
     color: 'pink',
     getColor: function () {
       if (this.eraserMode) return 'transparent';
@@ -56,9 +57,21 @@
   const clearBtn = document.querySelector('.js-clear-btn');
   clearBtn.addEventListener('click', clearGrid);
 
-  grid.addEventListener('mouseover', (ev) => {
-    const cell = ev.target;
-    const color = state.getColor();
+  grid.addEventListener('mouseover', (e) => {
+    const cell = e.target;
+    let color;
+
+    if (state.grayMode && !state.eraserMode) {
+      let opacity = Number(cell.dataset.opacity) || 0;
+      if (opacity < 1) {
+        opacity += 0.25;
+      }
+      cell.setAttribute('data-opacity', opacity);
+      color = `rgba(0,0,0,${opacity})`;
+    } else {
+      color = state.getColor();
+    }
+
     cell.style.backgroundColor = color;
   });
 
@@ -86,15 +99,26 @@
     state.rainbowMode = !state.rainbowMode;
     if (state.rainbowMode) {
       state.eraserMode = false;
+      state.grayMode = false;
+    }
+  }
+
+  function toggleGrayMode() {
+    state.grayMode = !state.grayMode;
+    if (state.grayMode) {
+      state.eraserMode = false;
+      state.rainbowMode = false;
     }
   }
 
   const eraserLabel = document.querySelector('.js-eraser-mode-label');
   const rainbowLabel = document.querySelector('.js-rainbow-mode-label');
+  const grayLabel = document.querySelector('.js-gray-mode-label');
 
   function updateUI() {
     eraserLabel.style.opacity = state.eraserMode ? '1' : '0';
     rainbowLabel.style.opacity = state.rainbowMode ? '1' : '0';
+    grayLabel.style.opacity = state.grayMode ? '1' : '0';
   }
 
   document.addEventListener('keydown', (e) => {
@@ -109,6 +133,14 @@
     // [R]ainbow
     if (e.key === 'r') {
       toggleRainbowMode();
+      updateUI();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    // [G]ray
+    if (e.key === 'g') {
+      toggleGrayMode();
       updateUI();
     }
   });
