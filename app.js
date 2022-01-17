@@ -10,14 +10,24 @@
     return `rgb(${num()},${num()},${num()})`;
   }
 
+  function getGrayColor(cell) {
+    let opacity = Number(cell.dataset.opacity) || 0;
+    if (opacity < 1) {
+      opacity += 0.25;
+    }
+    cell.setAttribute('data-opacity', opacity);
+    return `rgba(0,0,0,${opacity})`;
+  }
+
   const state = {
     eraserMode: false,
     rainbowMode: false,
     grayMode: false,
     color: 'pink',
-    getColor: function () {
+    getColor: function (cell) {
       if (this.eraserMode) return 'transparent';
       if (this.rainbowMode) return getRandomColor();
+      if (this.grayMode && !this.eraserMode) return getGrayColor(cell);
       return this.color;
     },
   };
@@ -59,19 +69,7 @@
 
   grid.addEventListener('mouseover', (e) => {
     const cell = e.target;
-    let color;
-
-    if (state.grayMode && !state.eraserMode) {
-      let opacity = Number(cell.dataset.opacity) || 0;
-      if (opacity < 1) {
-        opacity += 0.25;
-      }
-      cell.setAttribute('data-opacity', opacity);
-      color = `rgba(0,0,0,${opacity})`;
-    } else {
-      color = state.getColor();
-    }
-
+    const color = state.getColor(cell);
     cell.style.backgroundColor = color;
   });
 
