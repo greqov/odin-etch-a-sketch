@@ -5,11 +5,19 @@
   const gridSize = 480;
   const grid = document.querySelector('.js-grid');
 
+  function getRandomColor() {
+    // TODO: generate random color
+    return 'skyblue';
+  }
+
   const state = {
     eraserMode: false,
+    rainbowMode: false,
     color: 'pink',
     getColor: function () {
-      return this.eraserMode ? 'transparent' : this.color;
+      if (this.eraserMode) return 'transparent';
+      if (this.rainbowMode) return getRandomColor();
+      return this.color;
     },
   };
 
@@ -70,20 +78,37 @@
     }
   });
 
-  function toggleEraser() {
+  function toggleEraserMode() {
     state.eraserMode = !state.eraserMode;
   }
 
+  function toggleRainbowMode() {
+    state.rainbowMode = !state.rainbowMode;
+    if (state.rainbowMode) {
+      state.eraserMode = false;
+    }
+  }
+
   const eraserLabel = document.querySelector('.js-eraser-mode-label');
+  const rainbowLabel = document.querySelector('.js-rainbow-mode-label');
 
   function updateUI() {
     eraserLabel.style.opacity = state.eraserMode ? '1' : '0';
+    rainbowLabel.style.opacity = state.rainbowMode ? '1' : '0';
   }
 
   document.addEventListener('keydown', (e) => {
     // [C]lear/[E]raser
     if (e.key === 'c' || e.key === 'e') {
-      toggleEraser();
+      toggleEraserMode();
+      updateUI();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    // [R]ainbow
+    if (e.key === 'r') {
+      toggleRainbowMode();
       updateUI();
     }
   });
