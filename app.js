@@ -5,6 +5,14 @@
   const gridSize = 480;
   const grid = document.querySelector('.js-grid');
 
+  const state = {
+    eraserMode: false,
+    color: 'pink',
+    getColor: function () {
+      return this.eraserMode ? 'transparent' : this.color;
+    },
+  };
+
   function generateCells(num) {
     const cells = [];
     const size = (gridSize / num).toFixed(2);
@@ -42,7 +50,7 @@
 
   grid.addEventListener('mouseover', (ev) => {
     const cell = ev.target;
-    const color = 'rgba(255, 255, 255, 0.5)';
+    const color = state.getColor();
     cell.style.backgroundColor = color;
   });
 
@@ -59,6 +67,24 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       clearGrid();
+    }
+  });
+
+  function toggleEraser() {
+    state.eraserMode = !state.eraserMode;
+  }
+
+  const eraserLabel = document.querySelector('.js-eraser-mode-label');
+
+  function updateUI() {
+    eraserLabel.style.opacity = state.eraserMode ? '1' : '0';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    // [C]lear/[E]raser
+    if (e.key === 'c' || e.key === 'e') {
+      toggleEraser();
+      updateUI();
     }
   });
 })();
