@@ -11,7 +11,7 @@
 - [x] add option to change size of grid (limit to 100)
 - [x] add eraser mode
 - [x] add rainbow mode
-- [] add grayscale mode (add 10% of black on each hover event)
-- [] refactor
-- [] update readme (links, format, etc.)
-- [] make a cup of tea
+- [x] add grayscale mode (add 10% of black on each hover event)
+- [x] refactor
+- [x] update readme (links, format, etc.)
+- [x] make a cup of tea

@@ -4,6 +4,11 @@
   // TODO: get grid size in px
   const gridSize = 480;
   const grid = document.querySelector('.js-grid');
+  const clearBtn = document.querySelector('.js-clear-btn');
+  const sizeInput = document.querySelector('.js-size-input');
+  const eraserLabel = document.querySelector('.js-eraser-mode-label');
+  const rainbowLabel = document.querySelector('.js-rainbow-mode-label');
+  const grayLabel = document.querySelector('.js-gray-mode-label');
 
   function getRandomColor() {
     const num = () => Math.floor(Math.random() * 256);
@@ -52,9 +57,6 @@
     grid.append(...cells);
   }
 
-  // init actions
-  renderGrid(16);
-
   function clearGrid() {
     // TODO: how to select cells only one time?
     const cells = document.querySelectorAll('.grid__cell');
@@ -64,7 +66,6 @@
     });
   }
 
-  const clearBtn = document.querySelector('.js-clear-btn');
   clearBtn.addEventListener('click', clearGrid);
 
   grid.addEventListener('mouseover', (e) => {
@@ -74,7 +75,6 @@
   });
 
   // change grid size
-  const sizeInput = document.querySelector('.js-size-input');
   sizeInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       const size = e.target.value;
@@ -109,10 +109,6 @@
     }
   }
 
-  const eraserLabel = document.querySelector('.js-eraser-mode-label');
-  const rainbowLabel = document.querySelector('.js-rainbow-mode-label');
-  const grayLabel = document.querySelector('.js-gray-mode-label');
-
   function updateUI() {
     eraserLabel.style.opacity = state.eraserMode ? '1' : '0';
     rainbowLabel.style.opacity = state.rainbowMode ? '1' : '0';
@@ -142,4 +138,7 @@
       updateUI();
     }
   });
+
+  // init actions
+  renderGrid(16);
 })();
